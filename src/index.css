@@ -14,6 +14,11 @@ body,
   background: #38101b;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h, 88px);
+}
+
 body {
   font-family: 'DM Sans', Helvetica, sans-serif;
 }

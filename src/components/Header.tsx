@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import FadeIn from './FadeIn';
 import ContactButton from './ContactButton';
@@ -13,9 +13,35 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // The header is sticky, so anchor-jumping to a section (nav click, hash
+  // link, "back to top") lands the section's top flush with the viewport
+  // top -- which is exactly where the sticky header sits, cropping the
+  // section's heading behind it. `scroll-padding-top` on <html> reserves
+  // that space for anchor scrolling site-wide, so it needs to track the
+  // header's actual (responsive) height.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const updateOffset = () => {
+      document.documentElement.style.setProperty('--header-h', `${el.getBoundingClientRect().height}px`);
+    };
+
+    updateOffset();
+    const resizeObserver = new ResizeObserver(updateOffset);
+    resizeObserver.observe(el);
+    window.addEventListener('resize', updateOffset);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateOffset);
+    };
+  }, [isMenuOpen]);
 
   return (
-    <FadeIn delay={0} y={-20} as="header" className="sticky top-0 z-50">
+    <FadeIn delay={0} y={-20} as="header" ref={headerRef} className="sticky top-0 z-50">
       <div
         className="flex items-center justify-between gap-4 px-6 md:px-10 py-4 md:py-5"
         style={{

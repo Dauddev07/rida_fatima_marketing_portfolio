@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, type RefObject } from 'react';
 import FadeIn from '../components/FadeIn';
 import { brandRow1, brandRow2, brands, type Brand } from '../data/brands';
@@ -57,14 +58,16 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
     return () => window.removeEventListener('scroll', computeScrollX);
   }, [direction, setWidth, sectionRef]);
 
+  // Shared by the wheel/touch handlers below and by the tap arrows that
+  // appear on narrow screens, where swipe-to-browse isn't discoverable.
+  const applyDelta = (delta: number) => {
+    manualOffsetRef.current = ((manualOffsetRef.current + delta) % setWidth + setWidth) % setWidth;
+    applyTransform();
+  };
+
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
-
-    const applyDelta = (delta: number) => {
-      manualOffsetRef.current = ((manualOffsetRef.current + delta) % setWidth + setWidth) % setWidth;
-      applyTransform();
-    };
 
     // A vertical scroll gesture (normal up/down wheel or trackpad scroll)
     // must NOT be captured here -- let it fall through and scroll the page
@@ -122,6 +125,42 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
 
   return (
     <div ref={wrapperRef} className="relative overflow-hidden" style={{ height: 270 }}>
+      {/* Swipe isn't discoverable below ~500px, so give narrow screens an
+          explicit tap-through control instead of relying on gesture alone. */}
+      <button
+        type="button"
+        aria-label="Previous"
+        onClick={() => applyDelta(TILE_PITCH)}
+        className="hidden max-[499px]:flex items-center justify-center rounded-full absolute left-2 top-1/2 z-10"
+        style={{
+          transform: 'translateY(-50%)',
+          width: 34,
+          height: 34,
+          background: 'rgba(27,5,11,0.65)',
+          border: '1px solid rgba(215,242,92,0.55)',
+          color: '#F6EBE3',
+          backdropFilter: 'blur(4px)',
+        }}
+      >
+        <ChevronLeft size={18} />
+      </button>
+      <button
+        type="button"
+        aria-label="Next"
+        onClick={() => applyDelta(-TILE_PITCH)}
+        className="hidden max-[499px]:flex items-center justify-center rounded-full absolute right-2 top-1/2 z-10"
+        style={{
+          transform: 'translateY(-50%)',
+          width: 34,
+          height: 34,
+          background: 'rgba(27,5,11,0.65)',
+          border: '1px solid rgba(215,242,92,0.55)',
+          color: '#F6EBE3',
+          backdropFilter: 'blur(4px)',
+        }}
+      >
+        <ChevronRight size={18} />
+      </button>
       <div
         ref={innerRef}
         className="absolute left-0 top-0 flex gap-3"

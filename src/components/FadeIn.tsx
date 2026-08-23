@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 import type { ComponentType, ElementType, ReactNode } from 'react';
 
 interface FadeInProps {
@@ -29,19 +30,15 @@ function getMotionComponent(as: ElementType): ComponentType<any> {
   return Component;
 }
 
-export default function FadeIn({
-  children,
-  delay = 0,
-  duration = 0.7,
-  x = 0,
-  y = 30,
-  className,
-  as = 'div',
-}: FadeInProps) {
+const FadeIn = forwardRef<HTMLElement, FadeInProps>(function FadeIn(
+  { children, delay = 0, duration = 0.7, x = 0, y = 30, className, as = 'div' },
+  ref,
+) {
   const MotionTag = getMotionComponent(as);
 
   return (
     <MotionTag
+      ref={ref}
       className={className}
       initial={{ opacity: 0, x, y }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -51,4 +48,6 @@ export default function FadeIn({
       {children}
     </MotionTag>
   );
-}
+});
+
+export default FadeIn;
