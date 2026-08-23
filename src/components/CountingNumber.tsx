@@ -16,12 +16,18 @@ const VALUE_PATTERN = /^([−+]?)(\d+)(.*)$/;
 export default function CountingNumber({ value, className, style, duration = 1.6 }: CountingNumberProps) {
   const match = value.match(VALUE_PATTERN);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const isInView = useInView(ref, { once: false, margin: '-80px' });
   const [display, setDisplay] = useState(match ? `${match[1]}0${match[3]}` : value);
 
   useEffect(() => {
-    if (!match || !isInView) return;
+    if (!match) return;
     const [, prefix, digits, suffix] = match;
+
+    if (!isInView) {
+      setDisplay(`${prefix}0${suffix}`);
+      return;
+    }
+
     const target = parseInt(digits, 10);
     const controls = animate(0, target, {
       duration,
