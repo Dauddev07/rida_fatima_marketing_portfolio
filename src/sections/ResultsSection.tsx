@@ -5,46 +5,61 @@ interface Result {
   description: string;
   bg: string;
   text: string;
-  valueColor?: string;
+  valueColor: string;
+  border: string;
 }
 
+// Uniform dark card, brand accent (gold / terracotta / wine / taupe) reserved
+// for the number itself -- mirrors how the palette is used everywhere else
+// on the site (gradients and accents, never flat solid blocks).
 const results: Result[] = [
   {
     value: '300%',
     description: 'ROI on admissions campaigns through funnel and audience work.',
-    bg: '#B5502E',
-    text: '#0D0A08',
+    bg: '#1B1712',
+    text: '#F3EEE4',
+    valueColor: '#B5502E',
+    border: 'rgba(181,80,46,0.35)',
   },
   {
     value: '−35%',
     description: 'Cost per lead across Meta and Google, conversion quality held.',
-    bg: '#C6A15B',
-    text: '#0D0A08',
+    bg: '#1B1712',
+    text: '#F3EEE4',
+    valueColor: '#C6A15B',
+    border: 'rgba(198,161,91,0.35)',
   },
   {
     value: '2×',
     description: 'Average engagement for international brands, inside one quarter.',
-    bg: '#7C6A58',
-    text: '#0D0A08',
+    bg: '#1B1712',
+    text: '#F3EEE4',
+    valueColor: '#7C6A58',
+    border: 'rgba(124,106,88,0.4)',
   },
   {
     value: '+40%',
     description: 'Client conversion rate from landing page and funnel rebuilds.',
-    bg: '#5B2333',
+    bg: '#1B1712',
     text: '#F3EEE4',
+    valueColor: '#5B2333',
+    border: 'rgba(91,35,51,0.45)',
   },
   {
     value: '90',
     description: 'Days to move an emerging brand into consistent inbound leads.',
-    bg: '#F3EEE4',
-    text: '#0D0A08',
+    bg: '#1B1712',
+    text: '#F3EEE4',
+    valueColor: '#C6A15B',
+    border: 'rgba(198,161,91,0.35)',
   },
   {
     value: 'P.1',
     description: 'First-page rankings won on competitive keywords through outreach and authority links.',
-    bg: '#0D0A08',
+    bg: '#1B1712',
     text: '#F3EEE4',
-    valueColor: '#C6A15B',
+    valueColor: '#B5502E',
+    border: 'rgba(181,80,46,0.35)',
   },
 ];
 
@@ -64,14 +79,14 @@ export default function ResultsSection() {
         {results.map((result, i) => (
           <FadeIn key={result.value} delay={i * 0.08} y={30}>
             <div
-              className="rounded-[28px] p-6 sm:p-8 h-full"
-              style={{ background: result.bg }}
+              className="rounded-[28px] p-6 sm:p-8 h-full border"
+              style={{ background: result.bg, borderColor: result.border }}
             >
               <div
                 className="font-black leading-none"
                 style={{
                   fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                  color: result.valueColor ?? result.text,
+                  color: result.valueColor,
                   fontFamily: "'Playfair Display', Georgia, serif",
                 }}
               >

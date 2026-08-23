@@ -3,15 +3,16 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import FadeIn from '../components/FadeIn';
 import { workItems, type WorkItem } from '../data/work';
 
-// Mirrors the original per-project palette from Rida's own portfolio -- each
-// case study got its own bold accent color rather than one uniform card.
+// Uniform dark card matching the site's espresso base -- each case study
+// keeps its own accent color, but on the number/category/border rather than
+// as a flat solid fill, consistent with how the palette is used elsewhere.
 const CARD_THEMES = [
-  { bg: '#0D0A08', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(243,238,228,0.3)' },
-  { bg: '#7C6A58', text: '#0D0A08', accent: '#4A3D30', border: 'rgba(13,10,8,0.3)' },
-  { bg: '#B5502E', text: '#0D0A08', accent: '#3D1A22', border: 'rgba(13,10,8,0.3)' },
-  { bg: '#5B2333', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(243,238,228,0.3)' },
-  { bg: '#0D0A08', text: '#F3EEE4', accent: '#7C6A58', border: 'rgba(243,238,228,0.3)' },
-  { bg: '#F3EEE4', text: '#0D0A08', accent: '#8C3D22', border: 'rgba(13,10,8,0.3)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(198,161,91,0.35)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#7C6A58', border: 'rgba(124,106,88,0.4)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#B5502E', border: 'rgba(181,80,46,0.35)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(91,35,51,0.45)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#7C6A58', border: 'rgba(198,161,91,0.35)' },
+  { bg: '#181410', text: '#F3EEE4', accent: '#B5502E', border: 'rgba(181,80,46,0.35)' },
 ];
 
 interface WorkCardProps {
