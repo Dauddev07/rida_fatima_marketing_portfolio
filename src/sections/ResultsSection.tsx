@@ -1,4 +1,5 @@
 import FadeIn from '../components/FadeIn';
+import CountingNumber from '../components/CountingNumber';
 
 interface Result {
   value: string;
@@ -82,16 +83,15 @@ export default function ResultsSection() {
               className="rounded-[28px] p-6 sm:p-8 h-full border"
               style={{ background: result.bg, borderColor: result.border }}
             >
-              <div
+              <CountingNumber
+                value={result.value}
                 className="font-black leading-none"
                 style={{
                   fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                   color: result.valueColor,
                   fontFamily: "'Playfair Display', Georgia, serif",
                 }}
-              >
-                {result.value}
-              </div>
+              />
               <p
                 className="mt-4 leading-relaxed"
                 style={{
