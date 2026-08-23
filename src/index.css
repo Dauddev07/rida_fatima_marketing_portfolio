@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  background: #38101b;
+}
+
+body {
+  font-family: 'DM Sans', Helvetica, sans-serif;
+}
+
+a {
+  color: #f6ebe3;
+  text-decoration: none;
+}
+
+::selection {
+  background: #d7f25c;
+  color: #1b050b;
+}
+
+.hero-heading {
+  font-family: 'Instrument Serif', Georgia, serif;
+  background: linear-gradient(180deg, #f6ebe3 0%, #d7f25c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

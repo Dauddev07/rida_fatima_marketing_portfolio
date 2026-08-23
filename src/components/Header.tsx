@@ -1,0 +1,135 @@
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import FadeIn from './FadeIn';
+import ContactButton from './ContactButton';
+
+const NAV_LINKS = [
+  { label: 'Brands', href: '#brands' },
+  { label: 'What I Do', href: '#services' },
+  { label: 'Work', href: '#work' },
+  { label: 'Results', href: '#results' },
+  { label: 'About', href: '#about' },
+];
+
+export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <FadeIn delay={0} y={-20} as="header" className="sticky top-0 z-50">
+      <div
+        className="flex items-center justify-between gap-4 px-6 md:px-10 py-4 md:py-5"
+        style={{
+          background: 'rgba(27,5,11,0.72)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          borderBottom: '1px solid rgba(246,235,227,0.12)',
+        }}
+      >
+        <a
+          href="#top"
+          className="flex-shrink-0"
+          style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.4rem', color: '#F6EBE3' }}
+        >
+          Rida Fatima
+          <span
+            style={{
+              color: '#D7F25C',
+              animation: 'rf-blink 2.6s ease-in-out infinite',
+              display: 'inline-block',
+            }}
+          >
+            .
+          </span>
+        </a>
+
+        <nav className="hidden md:flex items-center gap-8">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="group relative uppercase tracking-wider text-sm pb-1"
+              style={{ color: 'rgba(246,235,227,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              {link.label}
+              <span
+                className="absolute left-0 bottom-0 h-px w-0 transition-all duration-300 group-hover:w-full"
+                style={{ background: '#D7F25C' }}
+              />
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden xs:block">
+          <ContactButton label="Work With Me" compact />
+        </div>
+
+        <button
+          type="button"
+          className="flex xs:hidden items-center justify-center rounded-full flex-shrink-0"
+          style={{ width: 40, height: 40, border: '1px solid rgba(246,235,227,0.3)', color: '#F6EBE3' }}
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+        >
+          {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </div>
+
+      <div
+        className="hidden xs:flex md:hidden gap-6 overflow-x-auto px-6 py-3"
+        style={{
+          background: 'rgba(27,5,11,0.72)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          borderBottom: '1px solid rgba(246,235,227,0.12)',
+          scrollbarWidth: 'none',
+        }}
+      >
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className="flex-shrink-0 uppercase tracking-wider text-xs whitespace-nowrap"
+            style={{ color: 'rgba(246,235,227,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      {isMenuOpen && (
+        <div
+          className="xs:hidden flex flex-col gap-1 px-6 py-4"
+          style={{
+            background: 'rgba(27,5,11,0.95)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            borderBottom: '1px solid rgba(246,235,227,0.12)',
+          }}
+        >
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="py-2.5 uppercase tracking-wider text-sm"
+              style={{ color: '#F6EBE3', fontFamily: "'JetBrains Mono', monospace" }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="pt-3">
+            <ContactButton label="Work With Me" compact />
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes rf-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.15; }
+        }
+      `}</style>
+    </FadeIn>
+  );
+}
