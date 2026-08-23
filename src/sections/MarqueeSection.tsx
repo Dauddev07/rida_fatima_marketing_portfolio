@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import FadeIn from '../components/FadeIn';
 import { brandRow1, brandRow2, brands, type Brand } from '../data/brands';
 
@@ -8,72 +8,76 @@ function tripled(items: Brand[]) {
 
 interface MarqueeRowProps {
   images: Brand[];
-  offset: number;
   direction: 1 | -1;
+  sectionRef: RefObject<HTMLElement | null>;
 }
 
 const TILE_WIDTH = 420;
 const TILE_GAP = 12;
 const TILE_PITCH = TILE_WIDTH + TILE_GAP;
 
-function MarqueeRow({ images, offset, direction }: MarqueeRowProps) {
+function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
   const setWidth = images.length * TILE_PITCH;
-
-  // Scroll-driven position, wrapped with modulo so it cycles through every
-  // tile continuously regardless of how far the page actually scrolls.
-  const raw = direction === 1 ? offset - 200 : -(offset - 200);
-  const wrapped = ((raw % setWidth) + setWidth) % setWidth;
-  const scrollX = direction === 1 ? wrapped - setWidth : -wrapped;
-
-  // A sideways scroll gesture (horizontal trackpad swipe, shift+wheel) nudges
-  // this row directly. It stays wherever it's left -- there's no snap-back;
-  // it just keeps riding the ambient scroll-driven motion from that point on.
-  const [manualOffset, setManualOffset] = useState(0);
-  // The wheel listener lives on this OUTER, never-transformed wrapper --
-  // not on the sliding row itself. A transformed element's hit-test box
-  // moves with it, so once the row had slid far enough, the cursor (which
-  // stays put on screen) would fall off its bounding box and stop
-  // receiving wheel events entirely -- which is exactly what "gets stuck"
-  // looked like. The wrapper's box never moves, so it always stays under
-  // the cursor.
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  // Everything here writes straight to the DOM via refs instead of going
+  // through React state. Both the ambient scroll-driven motion (which reads
+  // window scroll on every 'scroll' event -- and on a phone, momentum
+  // scrolling can fire dozens of those a second) and the manual drag (which
+  // reads touchmove -- similarly high-frequency) were previously calling
+  // setState on every single event, forcing a full React re-render each
+  // time. Desktop CPUs hide that cost; phones don't, which is what made the
+  // motion feel stuttery on mobile. Refs skip React's render cycle entirely,
+  // so updates are as cheap as a plain style write.
+  const scrollXRef = useRef(0);
+  const manualOffsetRef = useRef(0);
+
+  const applyTransform = () => {
+    if (innerRef.current) {
+      innerRef.current.style.transform = `translateX(${scrollXRef.current + manualOffsetRef.current}px)`;
+    }
+  };
 
   useEffect(() => {
-    const el = wrapperRef.current;
-    if (!el) return;
+    const computeScrollX = () => {
+      const sectionEl = sectionRef.current;
+      if (!sectionEl) return;
+      const sectionTop = sectionEl.getBoundingClientRect().top + window.scrollY;
+      const rawOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
 
-    const handleWheel = (e: WheelEvent) => {
-      // A vertical scroll gesture (normal up/down wheel or trackpad scroll)
-      // must NOT be captured here -- let it fall through and scroll the
-      // page like normal. The page scroll is exactly what drives the
-      // ambient forward/backward motion via the window scroll listener
-      // below, which already loops infinitely and never stops on its own.
-      // Only a genuine sideways gesture (a horizontal trackpad swipe, or
-      // shift+wheel) should nudge this specific row.
-      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-
-      e.preventDefault();
-      // Wrap with modulo instead of clamping -- so scrolling past the last
-      // tile loops seamlessly back to the first one, in either direction,
-      // forever, rather than hitting a dead stop at the end of the row.
-      setManualOffset((prev) => {
-        const next = prev - e.deltaX;
-        return ((next % setWidth) + setWidth) % setWidth;
-      });
+      const raw = direction === 1 ? rawOffset - 200 : -(rawOffset - 200);
+      const wrapped = ((raw % setWidth) + setWidth) % setWidth;
+      scrollXRef.current = direction === 1 ? wrapped - setWidth : -wrapped;
+      applyTransform();
     };
 
-    el.addEventListener('wheel', handleWheel, { passive: false });
-    return () => el.removeEventListener('wheel', handleWheel);
-  }, [setWidth]);
+    computeScrollX();
+    window.addEventListener('scroll', computeScrollX, { passive: true });
+    return () => window.removeEventListener('scroll', computeScrollX);
+  }, [direction, setWidth, sectionRef]);
 
-  // Touch devices never fire 'wheel' events at all, so the handler above
-  // does nothing on a phone -- this is the touch equivalent. Same rule:
-  // a mostly-vertical touch drag is left alone (normal page scroll), and
-  // only a mostly-horizontal drag moves the row, following the finger.
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
 
+    const applyDelta = (delta: number) => {
+      manualOffsetRef.current = ((manualOffsetRef.current + delta) % setWidth + setWidth) % setWidth;
+      applyTransform();
+    };
+
+    // A vertical scroll gesture (normal up/down wheel or trackpad scroll)
+    // must NOT be captured here -- let it fall through and scroll the page
+    // like normal, which is exactly what drives the ambient motion above.
+    // Only a genuine sideways gesture nudges this specific row.
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      applyDelta(-e.deltaX);
+    };
+
+    // Touch devices never fire 'wheel' events at all -- this is the touch
+    // equivalent, using the same left-alone-unless-sideways rule.
     let startX = 0;
     let startY = 0;
     let lastX = 0;
@@ -103,30 +107,25 @@ function MarqueeRow({ images, offset, direction }: MarqueeRowProps) {
       e.preventDefault();
       const dx = touch.clientX - lastX;
       lastX = touch.clientX;
-      setManualOffset((prev) => {
-        const next = prev + dx;
-        return ((next % setWidth) + setWidth) % setWidth;
-      });
+      applyDelta(dx);
     };
 
+    el.addEventListener('wheel', handleWheel, { passive: false });
     el.addEventListener('touchstart', handleTouchStart, { passive: true });
     el.addEventListener('touchmove', handleTouchMove, { passive: false });
     return () => {
+      el.removeEventListener('wheel', handleWheel);
       el.removeEventListener('touchstart', handleTouchStart);
       el.removeEventListener('touchmove', handleTouchMove);
     };
   }, [setWidth]);
 
-  const translateX = scrollX + manualOffset;
-
   return (
     <div ref={wrapperRef} className="relative overflow-hidden" style={{ height: 270 }}>
       <div
+        ref={innerRef}
         className="absolute left-0 top-0 flex gap-3"
-        style={{
-          willChange: 'transform',
-          transform: `translateX(${translateX}px)`,
-        }}
+        style={{ willChange: 'transform', transform: 'translateX(0px)' }}
       >
         {tripled(images).map((brand, i) => (
           <div
@@ -163,21 +162,6 @@ function MarqueeRow({ images, offset, direction }: MarqueeRowProps) {
 
 export default function MarqueeSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const el = sectionRef.current;
-      if (!el) return;
-      const sectionTop = el.getBoundingClientRect().top + window.scrollY;
-      const value = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
-      setOffset(value);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <section
@@ -202,8 +186,8 @@ export default function MarqueeSection() {
       </FadeIn>
 
       <div className="flex flex-col gap-3">
-        <MarqueeRow images={brandRow1} offset={offset} direction={1} />
-        <MarqueeRow images={brandRow2} offset={offset} direction={-1} />
+        <MarqueeRow images={brandRow1} direction={1} sectionRef={sectionRef} />
+        <MarqueeRow images={brandRow2} direction={-1} sectionRef={sectionRef} />
       </div>
 
       <div
