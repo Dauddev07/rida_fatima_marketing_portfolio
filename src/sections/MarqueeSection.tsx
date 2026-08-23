@@ -66,6 +66,57 @@ function MarqueeRow({ images, offset, direction }: MarqueeRowProps) {
     return () => el.removeEventListener('wheel', handleWheel);
   }, [setWidth]);
 
+  // Touch devices never fire 'wheel' events at all, so the handler above
+  // does nothing on a phone -- this is the touch equivalent. Same rule:
+  // a mostly-vertical touch drag is left alone (normal page scroll), and
+  // only a mostly-horizontal drag moves the row, following the finger.
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let mode: 'horizontal' | 'vertical' | null = null;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      lastX = startX;
+      mode = null;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      const touch = e.touches[0];
+
+      if (mode === null) {
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        mode = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+      }
+
+      if (mode !== 'horizontal') return;
+
+      e.preventDefault();
+      const dx = touch.clientX - lastX;
+      lastX = touch.clientX;
+      setManualOffset((prev) => {
+        const next = prev + dx;
+        return ((next % setWidth) + setWidth) % setWidth;
+      });
+    };
+
+    el.addEventListener('touchstart', handleTouchStart, { passive: true });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => {
+      el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [setWidth]);
+
   const translateX = scrollX + manualOffset;
 
   return (
