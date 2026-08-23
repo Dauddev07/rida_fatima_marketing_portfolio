@@ -86,7 +86,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden xs:block">
-          <ContactButton label="Work With Me" compact />
+          <ContactButton label="Work With Me" href="#contact" compact />
         </div>
 
         <button
@@ -145,7 +145,7 @@ export default function Header() {
             </a>
           ))}
           <div className="pt-3">
-            <ContactButton label="Work With Me" compact />
+            <ContactButton label="Work With Me" href="#contact" compact />
           </div>
         </div>
       )}
