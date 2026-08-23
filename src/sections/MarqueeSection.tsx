@@ -1,4 +1,3 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, type RefObject } from 'react';
 import FadeIn from '../components/FadeIn';
 import { brandRow1, brandRow2, brands, type Brand } from '../data/brands';
@@ -58,11 +57,46 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
     return () => window.removeEventListener('scroll', computeScrollX);
   }, [direction, setWidth, sectionRef]);
 
-  // Shared by the wheel/touch handlers below and by the tap arrows that
-  // appear on narrow screens, where swipe-to-browse isn't discoverable.
   const applyDelta = (delta: number) => {
     manualOffsetRef.current = ((manualOffsetRef.current + delta) % setWidth + setWidth) % setWidth;
     applyTransform();
+  };
+
+  // A trackpad/mouse wheel keeps sending small, decaying deltaX events on
+  // its own after one swipe (that's OS-level momentum), which is why
+  // desktop already glides to a stop. Touch gives us nothing after
+  // touchend -- since we preventDefault() on touchmove to claim the
+  // gesture, we also throw away any native scroll inertia -- so a swipe
+  // just stops dead the instant the finger lifts. This replays the same
+  // feel manually: track velocity while dragging, then keep applying it
+  // with exponential decay after release until it's imperceptible.
+  const velocityRef = useRef(0);
+  const momentumFrameRef = useRef<number | null>(null);
+
+  const stopMomentum = () => {
+    if (momentumFrameRef.current !== null) {
+      cancelAnimationFrame(momentumFrameRef.current);
+      momentumFrameRef.current = null;
+    }
+  };
+
+  const startMomentum = () => {
+    stopMomentum();
+    let lastTs = 0;
+    const FRICTION_PER_16MS = 0.94;
+    const step = (ts: number) => {
+      if (!lastTs) lastTs = ts;
+      const dt = ts - lastTs;
+      lastTs = ts;
+      velocityRef.current *= Math.pow(FRICTION_PER_16MS, dt / 16.67);
+      if (Math.abs(velocityRef.current) < 0.02) {
+        momentumFrameRef.current = null;
+        return;
+      }
+      applyDelta(velocityRef.current * dt);
+      momentumFrameRef.current = requestAnimationFrame(step);
+    };
+    momentumFrameRef.current = requestAnimationFrame(step);
   };
 
   useEffect(() => {
@@ -75,6 +109,7 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
     // Only a genuine sideways gesture nudges this specific row.
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      stopMomentum();
       e.preventDefault();
       applyDelta(-e.deltaX);
     };
@@ -84,13 +119,17 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
     let startX = 0;
     let startY = 0;
     let lastX = 0;
+    let lastMoveTs = 0;
     let mode: 'horizontal' | 'vertical' | null = null;
 
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches.length !== 1) return;
+      stopMomentum();
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       lastX = startX;
+      lastMoveTs = e.timeStamp;
+      velocityRef.current = 0;
       mode = null;
     };
 
@@ -109,58 +148,37 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
 
       e.preventDefault();
       const dx = touch.clientX - lastX;
+      const dt = e.timeStamp - lastMoveTs;
       lastX = touch.clientX;
+      lastMoveTs = e.timeStamp;
+      if (dt > 0) velocityRef.current = dx / dt;
       applyDelta(dx);
+    };
+
+    const handleTouchEnd = () => {
+      if (mode === 'horizontal' && Math.abs(velocityRef.current) > 0.02) {
+        startMomentum();
+      }
+      mode = null;
     };
 
     el.addEventListener('wheel', handleWheel, { passive: false });
     el.addEventListener('touchstart', handleTouchStart, { passive: true });
     el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    el.addEventListener('touchend', handleTouchEnd, { passive: true });
+    el.addEventListener('touchcancel', handleTouchEnd, { passive: true });
     return () => {
       el.removeEventListener('wheel', handleWheel);
       el.removeEventListener('touchstart', handleTouchStart);
       el.removeEventListener('touchmove', handleTouchMove);
+      el.removeEventListener('touchend', handleTouchEnd);
+      el.removeEventListener('touchcancel', handleTouchEnd);
+      stopMomentum();
     };
   }, [setWidth]);
 
   return (
     <div ref={wrapperRef} className="relative overflow-hidden" style={{ height: 270 }}>
-      {/* Swipe isn't discoverable below ~500px, so give narrow screens an
-          explicit tap-through control instead of relying on gesture alone. */}
-      <button
-        type="button"
-        aria-label="Previous"
-        onClick={() => applyDelta(TILE_PITCH)}
-        className="hidden max-[499px]:flex items-center justify-center rounded-full absolute left-2 top-1/2 z-10"
-        style={{
-          transform: 'translateY(-50%)',
-          width: 34,
-          height: 34,
-          background: 'rgba(27,5,11,0.65)',
-          border: '1px solid rgba(215,242,92,0.55)',
-          color: '#F6EBE3',
-          backdropFilter: 'blur(4px)',
-        }}
-      >
-        <ChevronLeft size={18} />
-      </button>
-      <button
-        type="button"
-        aria-label="Next"
-        onClick={() => applyDelta(-TILE_PITCH)}
-        className="hidden max-[499px]:flex items-center justify-center rounded-full absolute right-2 top-1/2 z-10"
-        style={{
-          transform: 'translateY(-50%)',
-          width: 34,
-          height: 34,
-          background: 'rgba(27,5,11,0.65)',
-          border: '1px solid rgba(215,242,92,0.55)',
-          color: '#F6EBE3',
-          backdropFilter: 'blur(4px)',
-        }}
-      >
-        <ChevronRight size={18} />
-      </button>
       <div
         ref={innerRef}
         className="absolute left-0 top-0 flex gap-3"
