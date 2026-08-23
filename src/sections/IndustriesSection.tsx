@@ -41,8 +41,8 @@ export default function IndustriesSection() {
           {industries.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border whitespace-nowrap px-3.5 py-2 sm:px-6 sm:py-3 text-xs sm:text-base transition-colors duration-300 hover:bg-[#D7F25C] hover:text-[#1B050B]"
-              style={{ borderColor: 'rgba(246,235,227,0.4)', color: '#F6EBE3' }}
+              className="rounded-full border whitespace-nowrap px-3.5 py-2 sm:px-6 sm:py-3 text-xs sm:text-base transition-colors duration-300 hover:bg-[#C6A15B] hover:text-[#0D0A08]"
+              style={{ borderColor: 'rgba(243,238,228,0.4)', color: '#F3EEE4' }}
             >
               {tag}
             </span>
@@ -53,9 +53,9 @@ export default function IndustriesSection() {
       <div
         className="relative mt-16 sm:mt-20 border-t-2 border-b-2 py-5 sm:py-6 overflow-hidden"
         style={{
-          borderColor: 'rgba(215,242,92,0.45)',
-          background: 'rgba(215,242,92,0.06)',
-          boxShadow: '0 0 24px rgba(215,242,92,0.12), inset 0 0 40px rgba(215,242,92,0.05)',
+          borderColor: 'rgba(198,161,91,0.45)',
+          background: 'rgba(198,161,91,0.06)',
+          boxShadow: '0 0 24px rgba(198,161,91,0.12), inset 0 0 40px rgba(198,161,91,0.05)',
           WebkitMaskImage:
             'linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)',
           maskImage:
@@ -65,7 +65,7 @@ export default function IndustriesSection() {
         <div
           className="flex w-max gap-10 uppercase tracking-[0.2em] text-base sm:text-lg font-medium"
           style={{
-            color: '#F6EBE3',
+            color: '#F3EEE4',
             fontFamily: "'JetBrains Mono', monospace",
             animation: 'rf-ticker-industries 18s linear infinite',
           }}
@@ -79,8 +79,8 @@ export default function IndustriesSection() {
                   display: 'inline-block',
                   width: 6,
                   height: 6,
-                  background: '#D7F25C',
-                  boxShadow: '0 0 8px rgba(215,242,92,0.9)',
+                  background: '#C6A15B',
+                  boxShadow: '0 0 8px rgba(198,161,91,0.9)',
                 }}
               />
             </span>

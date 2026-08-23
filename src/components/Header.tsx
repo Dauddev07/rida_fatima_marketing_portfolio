@@ -45,21 +45,21 @@ export default function Header() {
       <div
         className="flex items-center justify-between gap-4 px-6 md:px-10 py-4 md:py-5"
         style={{
-          background: 'rgba(27,5,11,0.72)',
+          background: 'rgba(13,10,8,0.72)',
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
-          borderBottom: '1px solid rgba(246,235,227,0.12)',
+          borderBottom: '1px solid rgba(243,238,228,0.12)',
         }}
       >
         <a
           href="#top"
           className="flex-shrink-0"
-          style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.4rem', color: '#F6EBE3' }}
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.4rem', color: '#F3EEE4' }}
         >
           Rida Fatima
           <span
             style={{
-              color: '#D7F25C',
+              color: '#C6A15B',
               animation: 'rf-blink 2.6s ease-in-out infinite',
               display: 'inline-block',
             }}
@@ -74,12 +74,12 @@ export default function Header() {
               key={link.label}
               href={link.href}
               className="group relative uppercase tracking-wider text-sm pb-1"
-              style={{ color: 'rgba(246,235,227,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
+              style={{ color: 'rgba(243,238,228,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
             >
               {link.label}
               <span
                 className="absolute left-0 bottom-0 h-px w-0 transition-all duration-300 group-hover:w-full"
-                style={{ background: '#D7F25C' }}
+                style={{ background: '#C6A15B' }}
               />
             </a>
           ))}
@@ -92,7 +92,7 @@ export default function Header() {
         <button
           type="button"
           className="flex xs:hidden items-center justify-center rounded-full flex-shrink-0"
-          style={{ width: 40, height: 40, border: '1px solid rgba(246,235,227,0.3)', color: '#F6EBE3' }}
+          style={{ width: 40, height: 40, border: '1px solid rgba(243,238,228,0.3)', color: '#F3EEE4' }}
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}
@@ -104,10 +104,10 @@ export default function Header() {
       <div
         className="hidden xs:flex md:hidden gap-6 overflow-x-auto px-6 py-3"
         style={{
-          background: 'rgba(27,5,11,0.72)',
+          background: 'rgba(13,10,8,0.72)',
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
-          borderBottom: '1px solid rgba(246,235,227,0.12)',
+          borderBottom: '1px solid rgba(243,238,228,0.12)',
           scrollbarWidth: 'none',
         }}
       >
@@ -116,7 +116,7 @@ export default function Header() {
             key={link.label}
             href={link.href}
             className="flex-shrink-0 uppercase tracking-wider text-xs whitespace-nowrap"
-            style={{ color: 'rgba(246,235,227,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
+            style={{ color: 'rgba(243,238,228,0.72)', fontFamily: "'JetBrains Mono', monospace" }}
           >
             {link.label}
           </a>
@@ -127,10 +127,10 @@ export default function Header() {
         <div
           className="xs:hidden flex flex-col gap-1 px-6 py-4"
           style={{
-            background: 'rgba(27,5,11,0.95)',
+            background: 'rgba(13,10,8,0.95)',
             backdropFilter: 'blur(14px)',
             WebkitBackdropFilter: 'blur(14px)',
-            borderBottom: '1px solid rgba(246,235,227,0.12)',
+            borderBottom: '1px solid rgba(243,238,228,0.12)',
           }}
         >
           {NAV_LINKS.map((link) => (
@@ -138,7 +138,7 @@ export default function Header() {
               key={link.label}
               href={link.href}
               className="py-2.5 uppercase tracking-wider text-sm"
-              style={{ color: '#F6EBE3', fontFamily: "'JetBrains Mono', monospace" }}
+              style={{ color: '#F3EEE4', fontFamily: "'JetBrains Mono', monospace" }}
               onClick={() => setIsMenuOpen(false)}
             >
               {link.label}

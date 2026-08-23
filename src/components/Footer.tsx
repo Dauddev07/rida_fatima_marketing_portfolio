@@ -18,18 +18,18 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1B050B', borderTop: '1px solid rgba(246,235,227,0.12)' }}>
+    <footer style={{ background: '#0D0A08', borderTop: '1px solid rgba(243,238,228,0.12)' }}>
       <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 sm:py-16">
         <FadeIn delay={0} y={20}>
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
             <div className="flex flex-col gap-3 max-w-xs">
               <a
                 href="#top"
-                style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.6rem', color: '#F6EBE3' }}
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.6rem', color: '#F3EEE4' }}
               >
-                Rida Fatima<span style={{ color: '#D7F25C' }}>.</span>
+                Rida Fatima<span style={{ color: '#C6A15B' }}>.</span>
               </a>
-              <p style={{ color: 'rgba(246,235,227,0.55)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+              <p style={{ color: 'rgba(243,238,228,0.55)', fontSize: '0.9rem', lineHeight: 1.6 }}>
                 Marketing strategist and copywriter, building brands people
                 actually remember.
               </p>
@@ -38,7 +38,7 @@ export default function Footer() {
             <nav className="flex flex-col gap-2">
               <span
                 className="uppercase tracking-widest text-xs mb-1"
-                style={{ color: 'rgba(246,235,227,0.4)', fontFamily: "'JetBrains Mono', monospace" }}
+                style={{ color: 'rgba(243,238,228,0.4)', fontFamily: "'JetBrains Mono', monospace" }}
               >
                 Explore
               </span>
@@ -47,7 +47,7 @@ export default function Footer() {
                   key={link.label}
                   href={link.href}
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: '#F6EBE3', fontSize: '0.95rem' }}
+                  style={{ color: '#F3EEE4', fontSize: '0.95rem' }}
                 >
                   {link.label}
                 </a>
@@ -62,16 +62,16 @@ export default function Footer() {
                     href={href}
                     aria-label={label}
                     className="flex items-center justify-center rounded-full transition-colors duration-200"
-                    style={{ width: 42, height: 42, border: '1px solid rgba(246,235,227,0.25)', color: '#F6EBE3' }}
+                    style={{ width: 42, height: 42, border: '1px solid rgba(243,238,228,0.25)', color: '#F3EEE4' }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#D7F25C';
-                      e.currentTarget.style.color = '#1B050B';
-                      e.currentTarget.style.borderColor = '#D7F25C';
+                      e.currentTarget.style.background = '#C6A15B';
+                      e.currentTarget.style.color = '#0D0A08';
+                      e.currentTarget.style.borderColor = '#C6A15B';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = '#F6EBE3';
-                      e.currentTarget.style.borderColor = 'rgba(246,235,227,0.25)';
+                      e.currentTarget.style.color = '#F3EEE4';
+                      e.currentTarget.style.borderColor = 'rgba(243,238,228,0.25)';
                     }}
                   >
                     <Icon size={18} />
@@ -82,7 +82,7 @@ export default function Footer() {
               <a
                 href="#top"
                 className="flex items-center gap-2 uppercase tracking-widest text-xs transition-opacity hover:opacity-70"
-                style={{ color: 'rgba(246,235,227,0.6)', fontFamily: "'JetBrains Mono', monospace" }}
+                style={{ color: 'rgba(243,238,228,0.6)', fontFamily: "'JetBrains Mono', monospace" }}
               >
                 <ArrowUp size={14} />
                 Back to top
@@ -94,7 +94,7 @@ export default function Footer() {
         <FadeIn delay={0.15} y={20}>
           <div
             className="flex flex-wrap justify-between gap-4 mt-12 pt-6 uppercase tracking-widest text-xs border-t"
-            style={{ color: 'rgba(246,235,227,0.4)', borderColor: 'rgba(246,235,227,0.12)', fontFamily: "'JetBrains Mono', monospace" }}
+            style={{ color: 'rgba(243,238,228,0.4)', borderColor: 'rgba(243,238,228,0.12)', fontFamily: "'JetBrains Mono', monospace" }}
           >
             <span>© 2026 Rida Fatima</span>
             <span>Marketing strategist · Content · Brand</span>

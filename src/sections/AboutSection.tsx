@@ -4,10 +4,10 @@ import AnimatedText from '../components/AnimatedText';
 // Reuses the same four decorative treatments from the hero's floating blobs
 // -- her original brand accents, just relocated to frame the About section.
 const BLOB_STYLES: React.CSSProperties[] = [
-  { background: 'radial-gradient(circle at 35% 35%, #FF6B3D, #8C1B2E)' },
-  { background: '#D7F25C' },
-  { background: 'transparent', border: '2px solid #B69CFF' },
-  { background: 'rgba(182,156,255,0.25)', filter: 'blur(6px)' },
+  { background: 'radial-gradient(circle at 35% 35%, #B5502E, #5B2333)' },
+  { background: '#C6A15B' },
+  { background: 'transparent', border: '2px solid #7C6A58' },
+  { background: 'rgba(124,106,88,0.25)', filter: 'blur(6px)' },
 ];
 
 function Blob({ style, variant }: { style: React.CSSProperties; variant: number }) {
@@ -19,7 +19,7 @@ export default function AboutSection() {
     <section
       id="about"
       className="relative min-h-screen flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20"
-      style={{ background: '#38101B' }}
+      style={{ background: '#15110D' }}
     >
       <FadeIn
         delay={0.1}
@@ -75,13 +75,13 @@ export default function AboutSection() {
           <AnimatedText
             text="I started as a writer. That's still the advantage. Eight years in, I've written for switchgear manufacturers and restaurants, for education providers and NYC startups. The industries change; the job doesn't. Find what's actually true about a brand, say it in a way people want to hear, then put it where the right people are looking."
             className="text-center leading-relaxed max-w-[600px] font-medium"
-            style={{ color: '#F6EBE3', fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
+            style={{ color: '#F3EEE4', fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
           />
 
           <FadeIn delay={0.2} y={20}>
             <p
               className="text-center leading-relaxed max-w-[560px] font-light"
-              style={{ color: 'rgba(246,235,227,0.7)', fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)' }}
+              style={{ color: 'rgba(243,238,228,0.7)', fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)' }}
             >
               I read English literature at Shah Abdul Latif University — two
               degrees in how language moves people. Turns out that's the
@@ -99,15 +99,15 @@ export default function AboutSection() {
                 <div
                   key={item.label}
                   className="rounded-2xl px-5 py-4 text-center sm:text-left"
-                  style={{ background: '#F6EBE3' }}
+                  style={{ background: '#F3EEE4' }}
                 >
                   <div
                     className="uppercase tracking-widest text-xs"
-                    style={{ color: '#8C1B2E', fontFamily: "'JetBrains Mono', monospace" }}
+                    style={{ color: '#5B2333', fontFamily: "'JetBrains Mono', monospace" }}
                   >
                     {item.label}
                   </div>
-                  <div className="mt-1 text-sm" style={{ color: '#1B050B' }}>
+                  <div className="mt-1 text-sm" style={{ color: '#0D0A08' }}>
                     {item.value}
                   </div>
                 </div>
@@ -118,7 +118,7 @@ export default function AboutSection() {
           <FadeIn delay={0.4} y={20}>
             <span
               className="uppercase tracking-widest text-xs"
-              style={{ color: 'rgba(246,235,227,0.5)', fontFamily: "'JetBrains Mono', monospace" }}
+              style={{ color: 'rgba(243,238,228,0.5)', fontFamily: "'JetBrains Mono', monospace" }}
             >
               Rida Fatima — Pakistan / Remote
             </span>

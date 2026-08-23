@@ -201,12 +201,12 @@ function MarqueeRow({ images, direction, sectionRef }: MarqueeRowProps) {
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(27,5,11,0) 55%, rgba(27,5,11,0.78) 100%)',
+                  'linear-gradient(180deg, rgba(13,10,8,0) 55%, rgba(13,10,8,0.78) 100%)',
               }}
             />
             <span
               className="absolute bottom-4 left-5 uppercase tracking-wide text-lg"
-              style={{ color: '#F6EBE3', fontFamily: "'Instrument Serif', Georgia, serif" }}
+              style={{ color: '#F3EEE4', fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               {brand.name}
             </span>
@@ -225,7 +225,7 @@ export default function MarqueeSection() {
       id="brands"
       ref={sectionRef}
       className="pt-24 sm:pt-32 md:pt-40 pb-16"
-      style={{ background: '#38101B', overflowX: 'clip' }}
+      style={{ background: '#15110D', overflowX: 'clip' }}
     >
       <FadeIn delay={0} y={40}>
         <h2 className="hero-heading font-black uppercase text-center leading-none tracking-tight px-6 mb-3 text-[9vw] sm:text-[7vw] md:text-[5.5vw]">
@@ -236,7 +236,7 @@ export default function MarqueeSection() {
       <FadeIn delay={0.15} y={16}>
         <p
           className="text-center uppercase tracking-widest text-xs mb-14 sm:mb-16 md:mb-20"
-          style={{ color: 'rgba(246,235,227,0.45)', fontFamily: "'JetBrains Mono', monospace" }}
+          style={{ color: 'rgba(243,238,228,0.45)', fontFamily: "'JetBrains Mono', monospace" }}
         >
           Swipe sideways over a row to browse
         </p>
@@ -250,9 +250,9 @@ export default function MarqueeSection() {
       <div
         className="relative mt-16 sm:mt-20 border-t-2 border-b-2 py-5 sm:py-6 overflow-hidden"
         style={{
-          borderColor: 'rgba(215,242,92,0.45)',
-          background: 'rgba(215,242,92,0.06)',
-          boxShadow: '0 0 24px rgba(215,242,92,0.12), inset 0 0 40px rgba(215,242,92,0.05)',
+          borderColor: 'rgba(198,161,91,0.45)',
+          background: 'rgba(198,161,91,0.06)',
+          boxShadow: '0 0 24px rgba(198,161,91,0.12), inset 0 0 40px rgba(198,161,91,0.05)',
           WebkitMaskImage:
             'linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)',
           maskImage:
@@ -262,7 +262,7 @@ export default function MarqueeSection() {
         <div
           className="flex w-max gap-10 uppercase tracking-[0.2em] text-base sm:text-lg font-medium"
           style={{
-            color: '#F6EBE3',
+            color: '#F3EEE4',
             fontFamily: "'JetBrains Mono', monospace",
             animation: 'rf-ticker 40s linear infinite',
           }}
@@ -276,8 +276,8 @@ export default function MarqueeSection() {
                   display: 'inline-block',
                   width: 6,
                   height: 6,
-                  background: '#D7F25C',
-                  boxShadow: '0 0 8px rgba(215,242,92,0.9)',
+                  background: '#C6A15B',
+                  boxShadow: '0 0 8px rgba(198,161,91,0.9)',
                 }}
               />
             </span>

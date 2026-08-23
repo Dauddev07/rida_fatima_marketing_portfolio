@@ -33,12 +33,12 @@ export default function ContactSection() {
     <section
       id="contact"
       className="relative px-5 sm:px-8 md:px-10 py-24 sm:py-28 md:py-36 overflow-hidden"
-      style={{ background: '#1B050B' }}
+      style={{ background: '#0D0A08' }}
     >
       <div
         className="absolute top-[-80px] right-[-40px] w-[320px] h-[320px] rounded-full"
         style={{
-          background: 'radial-gradient(circle at 40% 40%, rgba(255,107,61,0.4), rgba(140,27,46,0.2))',
+          background: 'radial-gradient(circle at 40% 40%, rgba(181,80,46,0.4), rgba(91,35,51,0.2))',
           filter: 'blur(6px)',
         }}
       />
@@ -47,7 +47,7 @@ export default function ContactSection() {
         <FadeIn delay={0} y={20}>
           <span
             className="inline-block rounded-full px-4 py-1.5 uppercase tracking-widest text-xs mb-8"
-            style={{ background: '#D7F25C', color: '#1B050B', fontFamily: "'JetBrains Mono', monospace" }}
+            style={{ background: '#C6A15B', color: '#0D0A08', fontFamily: "'JetBrains Mono', monospace" }}
           >
             Let&apos;s Connect
           </span>
@@ -71,24 +71,24 @@ export default function ContactSection() {
                 key={label}
                 href={href}
                 className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-colors duration-200"
-                style={{ border: '1px solid rgba(246,235,227,0.2)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(246,235,227,0.06)')}
+                style={{ border: '1px solid rgba(243,238,228,0.2)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(243,238,228,0.06)')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 <span
                   className="flex items-center justify-center rounded-full flex-shrink-0"
-                  style={{ width: 44, height: 44, background: 'rgba(215,242,92,0.15)' }}
+                  style={{ width: 44, height: 44, background: 'rgba(198,161,91,0.15)' }}
                 >
-                  <Icon size={20} style={{ color: '#D7F25C' }} />
+                  <Icon size={20} style={{ color: '#C6A15B' }} />
                 </span>
                 <span className="flex flex-col">
                   <span
                     className="uppercase tracking-widest text-xs"
-                    style={{ color: 'rgba(246,235,227,0.5)', fontFamily: "'JetBrains Mono', monospace" }}
+                    style={{ color: 'rgba(243,238,228,0.5)', fontFamily: "'JetBrains Mono', monospace" }}
                   >
                     {label}
                   </span>
-                  <span style={{ color: '#F6EBE3', fontSize: '1.05rem' }}>{value}</span>
+                  <span style={{ color: '#F3EEE4', fontSize: '1.05rem' }}>{value}</span>
                 </span>
               </a>
             ))}
@@ -100,11 +100,11 @@ export default function ContactSection() {
             href="/uploads/resume.pdf"
             className="inline-flex items-center gap-3 rounded-full px-8 py-4 mt-8 uppercase tracking-widest text-sm transition-transform duration-200 hover:-translate-y-0.5"
             style={{
-              background: 'linear-gradient(123deg, #8C1B2E 7%, #FF6B3D 37%, #B69CFF 72%, #D7F25C 100%)',
-              color: '#1B050B',
+              background: 'linear-gradient(123deg, #5B2333 7%, #B5502E 37%, #7C6A58 72%, #C6A15B 100%)',
+              color: '#0D0A08',
               fontFamily: "'JetBrains Mono', monospace",
-              boxShadow: '0px 4px 4px rgba(140,27,46,0.25), 4px 4px 12px rgba(215,242,92,0.35) inset',
-              outline: '2px solid #F6EBE3',
+              boxShadow: '0px 4px 4px rgba(91,35,51,0.25), 4px 4px 12px rgba(198,161,91,0.35) inset',
+              outline: '2px solid #F3EEE4',
               outlineOffset: '-3px',
             }}
           >

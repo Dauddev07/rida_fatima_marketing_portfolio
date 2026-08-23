@@ -7,8 +7,8 @@ export default {
         xs: '400px',
       },
       fontFamily: {
-        sans: ['DM Sans', 'Helvetica', 'sans-serif'],
-        serif: ['Instrument Serif', 'Georgia', 'serif'],
+        sans: ['Inter', 'Helvetica', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },

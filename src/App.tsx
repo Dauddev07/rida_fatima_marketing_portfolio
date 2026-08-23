@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div style={{ background: '#38101B', overflowX: 'clip' }}>
+    <div style={{ background: '#15110D', overflowX: 'clip' }}>
       <Header />
       <HeroSection />
       <MarqueeSection />

@@ -11,7 +11,7 @@
 html,
 body,
 #root {
-  background: #38101b;
+  background: #15110d;
 }
 
 html {
@@ -20,22 +20,22 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', Helvetica, sans-serif;
+  font-family: 'Inter', Helvetica, sans-serif;
 }
 
 a {
-  color: #f6ebe3;
+  color: #f3eee4;
   text-decoration: none;
 }
 
 ::selection {
-  background: #d7f25c;
-  color: #1b050b;
+  background: #c6a15b;
+  color: #0d0a08;
 }
 
 .hero-heading {
-  font-family: 'Instrument Serif', Georgia, serif;
-  background: linear-gradient(180deg, #f6ebe3 0%, #d7f25c 100%);
+  font-family: 'Playfair Display', Georgia, serif;
+  background: linear-gradient(180deg, #f3eee4 0%, #c6a15b 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

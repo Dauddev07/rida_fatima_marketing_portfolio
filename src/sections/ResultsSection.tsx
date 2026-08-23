@@ -12,39 +12,39 @@ const results: Result[] = [
   {
     value: '300%',
     description: 'ROI on admissions campaigns through funnel and audience work.',
-    bg: '#FF6B3D',
-    text: '#1B050B',
+    bg: '#B5502E',
+    text: '#0D0A08',
   },
   {
     value: '−35%',
     description: 'Cost per lead across Meta and Google, conversion quality held.',
-    bg: '#D7F25C',
-    text: '#1B050B',
+    bg: '#C6A15B',
+    text: '#0D0A08',
   },
   {
     value: '2×',
     description: 'Average engagement for international brands, inside one quarter.',
-    bg: '#B69CFF',
-    text: '#1B050B',
+    bg: '#7C6A58',
+    text: '#0D0A08',
   },
   {
     value: '+40%',
     description: 'Client conversion rate from landing page and funnel rebuilds.',
-    bg: '#8C1B2E',
-    text: '#F6EBE3',
+    bg: '#5B2333',
+    text: '#F3EEE4',
   },
   {
     value: '90',
     description: 'Days to move an emerging brand into consistent inbound leads.',
-    bg: '#F6EBE3',
-    text: '#1B050B',
+    bg: '#F3EEE4',
+    text: '#0D0A08',
   },
   {
     value: 'P.1',
     description: 'First-page rankings won on competitive keywords through outreach and authority links.',
-    bg: '#1B050B',
-    text: '#F6EBE3',
-    valueColor: '#D7F25C',
+    bg: '#0D0A08',
+    text: '#F3EEE4',
+    valueColor: '#C6A15B',
   },
 ];
 
@@ -72,7 +72,7 @@ export default function ResultsSection() {
                 style={{
                   fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                   color: result.valueColor ?? result.text,
-                  fontFamily: "'Instrument Serif', Georgia, serif",
+                  fontFamily: "'Playfair Display', Georgia, serif",
                 }}
               >
                 {result.value}

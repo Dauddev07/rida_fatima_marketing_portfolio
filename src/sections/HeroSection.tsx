@@ -54,9 +54,9 @@ export default function HeroSection() {
             <div
               className="rounded-full flex items-center justify-center text-center w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px]"
               style={{
-                background: 'radial-gradient(circle at 35% 30%, rgba(255,107,61,0.45), rgba(27,5,11,0.9) 72%)',
-                border: '2px solid rgba(215,242,92,0.55)',
-                boxShadow: '0 0 60px rgba(255,107,61,0.18)',
+                background: 'radial-gradient(circle at 35% 30%, rgba(181,80,46,0.45), rgba(13,10,8,0.9) 72%)',
+                border: '2px solid rgba(198,161,91,0.55)',
+                boxShadow: '0 0 60px rgba(181,80,46,0.18)',
               }}
             >
               <span className="hero-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl">
@@ -71,7 +71,7 @@ export default function HeroSection() {
         <FadeIn delay={0.3} y={20}>
           <p
             className="font-light uppercase tracking-wide leading-snug max-w-[220px] sm:max-w-[320px] md:max-w-[420px]"
-            style={{ color: '#F6EBE3', fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
+            style={{ color: '#F3EEE4', fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
           >
             Eight years building brands people actually remember — social,
             content and campaigns across twelve industries and three

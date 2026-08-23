@@ -6,12 +6,12 @@ import { workItems, type WorkItem } from '../data/work';
 // Mirrors the original per-project palette from Rida's own portfolio -- each
 // case study got its own bold accent color rather than one uniform card.
 const CARD_THEMES = [
-  { bg: '#1B050B', text: '#F6EBE3', accent: '#D7F25C', border: 'rgba(246,235,227,0.3)' },
-  { bg: '#B69CFF', text: '#1B050B', accent: '#4A2A8C', border: 'rgba(27,5,11,0.3)' },
-  { bg: '#FF6B3D', text: '#1B050B', accent: '#6E1220', border: 'rgba(27,5,11,0.3)' },
-  { bg: '#8C1B2E', text: '#F6EBE3', accent: '#D7F25C', border: 'rgba(246,235,227,0.3)' },
-  { bg: '#1B050B', text: '#F6EBE3', accent: '#B69CFF', border: 'rgba(246,235,227,0.3)' },
-  { bg: '#F6EBE3', text: '#1B050B', accent: '#B0301C', border: 'rgba(27,5,11,0.3)' },
+  { bg: '#0D0A08', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(243,238,228,0.3)' },
+  { bg: '#7C6A58', text: '#0D0A08', accent: '#4A3D30', border: 'rgba(13,10,8,0.3)' },
+  { bg: '#B5502E', text: '#0D0A08', accent: '#3D1A22', border: 'rgba(13,10,8,0.3)' },
+  { bg: '#5B2333', text: '#F3EEE4', accent: '#C6A15B', border: 'rgba(243,238,228,0.3)' },
+  { bg: '#0D0A08', text: '#F3EEE4', accent: '#7C6A58', border: 'rgba(243,238,228,0.3)' },
+  { bg: '#F3EEE4', text: '#0D0A08', accent: '#8C3D22', border: 'rgba(13,10,8,0.3)' },
 ];
 
 interface WorkCardProps {
@@ -46,7 +46,7 @@ function WorkCard({ item, index, totalCards }: WorkCardProps) {
             <div className="flex items-baseline gap-4 sm:gap-6">
               <span
                 className="font-black leading-none"
-                style={{ color: theme.text, fontSize: 'clamp(2.5rem, 7vw, 90px)', fontFamily: "'Instrument Serif', Georgia, serif" }}
+                style={{ color: theme.text, fontSize: 'clamp(2.5rem, 7vw, 90px)', fontFamily: "'Playfair Display', Georgia, serif" }}
               >
                 {item.number}
               </span>
@@ -59,7 +59,7 @@ function WorkCard({ item, index, totalCards }: WorkCardProps) {
             </div>
             <h3
               className="font-medium mt-3 mb-4 leading-snug"
-              style={{ color: theme.text, fontSize: 'clamp(1.15rem, 2.6vw, 2.1rem)', fontFamily: "'Instrument Serif', Georgia, serif" }}
+              style={{ color: theme.text, fontSize: 'clamp(1.15rem, 2.6vw, 2.1rem)', fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               {item.name}
             </h3>
@@ -101,7 +101,7 @@ export default function WorkSection() {
     <section
       id="work"
       className="relative z-10 -mt-10 sm:-mt-12 md:-mt-14 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
-      style={{ background: '#38101B' }}
+      style={{ background: '#15110D' }}
     >
       <FadeIn delay={0} y={40}>
         <h2

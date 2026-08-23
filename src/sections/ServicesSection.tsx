@@ -39,12 +39,12 @@ export default function ServicesSection() {
     <section
       id="services"
       className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
-      style={{ background: '#F6EBE3' }}
+      style={{ background: '#F3EEE4' }}
     >
       <FadeIn delay={0} y={40}>
         <h2
           className="font-black uppercase text-center mb-16 sm:mb-20 md:mb-28"
-          style={{ color: '#1B050B', fontSize: 'clamp(3rem, 10vw, 140px)', fontFamily: "'Instrument Serif', Georgia, serif" }}
+          style={{ color: '#0D0A08', fontSize: 'clamp(3rem, 10vw, 140px)', fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           What I Do
         </h2>
@@ -57,8 +57,8 @@ export default function ServicesSection() {
               className="group flex items-center gap-6 sm:gap-10 py-8 sm:py-10 md:py-12 cursor-pointer"
               style={{
                 borderTop:
-                  i === 0 ? '1px solid rgba(27, 5, 11, 0.15)' : undefined,
-                borderBottom: '1px solid rgba(27, 5, 11, 0.15)',
+                  i === 0 ? '1px solid rgba(13, 10, 8, 0.15)' : undefined,
+                borderBottom: '1px solid rgba(13, 10, 8, 0.15)',
               }}
               initial="rest"
               whileHover="hover"
@@ -67,9 +67,9 @@ export default function ServicesSection() {
               <motion.span
                 className="font-black leading-none flex-shrink-0"
                 style={{
-                  color: '#1B050B',
+                  color: '#0D0A08',
                   fontSize: 'clamp(3rem, 10vw, 140px)',
-                  fontFamily: "'Instrument Serif', Georgia, serif",
+                  fontFamily: "'Playfair Display', Georgia, serif",
                 }}
                 variants={{ rest: { x: 0 }, hover: { x: -8 } }}
                 transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
@@ -85,9 +85,9 @@ export default function ServicesSection() {
                 <h3
                   className="font-medium uppercase"
                   style={{
-                    color: '#1B050B',
+                    color: '#0D0A08',
                     fontSize: 'clamp(1rem, 2.2vw, 2.1rem)',
-                    fontFamily: "'Instrument Serif', Georgia, serif",
+                    fontFamily: "'Playfair Display', Georgia, serif",
                   }}
                 >
                   {service.name}
@@ -95,7 +95,7 @@ export default function ServicesSection() {
                 <p
                   className="font-light leading-relaxed max-w-2xl"
                   style={{
-                    color: '#1B050B',
+                    color: '#0D0A08',
                     fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)',
                     opacity: 0.6,
                   }}
